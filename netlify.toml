@@ -1,0 +1,15 @@
+# Netlify config — server-side redirect to Shopee deep link
+# Bypass FB iOS / Android dialog by avoiding JavaScript redirect
+
+[[redirects]]
+  from = "/"
+  to = "https://vn.shp.ee/4pZFy8jg"
+  status = 302
+  force = true
+
+# Multiple shop / product redirects (thêm khi cần)
+# [[redirects]]
+#   from = "/sp1"
+#   to = "https://vn.shp.ee/AbCdEf12"
+#   status = 302
+#   force = true
