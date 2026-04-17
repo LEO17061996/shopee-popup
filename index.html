@@ -3,78 +3,67 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<title>Demo - Mở App Shopee từ trình duyệt Facebook</title>
+<title>Đang chuyển đến App Shopee...</title>
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-       background:linear-gradient(135deg,#ffeadf,#ffd1c2);
-       min-height:100vh;color:#222;display:flex;align-items:center;justify-content:center;padding:20px}
-  .card{background:#fff;border-radius:18px;padding:26px 22px;max-width:400px;width:100%;
-        box-shadow:0 12px 40px rgba(0,0,0,.12);text-align:center}
-  .logo{width:90px;height:90px;border-radius:50%;background:#ee4d2d;color:#fff;
-        font-size:46px;font-weight:800;line-height:90px;margin:0 auto 14px;
-        box-shadow:0 6px 18px rgba(238,77,45,.4)}
-  h1{font-size:20px;margin-bottom:6px;color:#222}
-  .sub{font-size:14px;color:#666;margin-bottom:18px;line-height:1.5}
-  .product{background:#fff8f5;border:1px dashed #ee4d2d;border-radius:12px;
-           padding:12px;margin-bottom:18px;text-align:left;display:flex;gap:10px;align-items:center}
-  .product img{width:60px;height:60px;border-radius:8px;object-fit:cover;background:#eee}
-  .product .info{flex:1}
-  .product .name{font-size:14px;font-weight:600;color:#222;line-height:1.3}
-  .product .price{color:#ee4d2d;font-weight:700;font-size:15px;margin-top:2px}
-  .product .sold{font-size:11px;color:#999;margin-top:2px}
-  #btn-open-shopee{width:100%;padding:14px;background:linear-gradient(135deg,#ee4d2d,#ff7337);
-        color:#fff;border:0;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;
-        box-shadow:0 6px 18px rgba(238,77,45,.4)}
-  #btn-open-shopee:active{transform:scale(.98)}
-  .foot{font-size:11.5px;color:#999;margin-top:14px}
-
-  /* ===== POPUP ===== */
-  #sp-mask{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;
-    align-items:center;justify-content:center;z-index:99999}
-  #sp-box{position:relative;background:#fff;width:88%;max-width:340px;
-    border-radius:16px;padding:24px 18px 18px;text-align:center;
-    box-shadow:0 10px 40px rgba(0,0,0,.3);animation:sp-in .25s ease}
-  @keyframes sp-in{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}
-  #sp-box h3{margin:0 0 6px;font-size:18px;color:#222}
-  #sp-box p{margin:0 0 14px;font-size:13.5px;color:#666;line-height:1.45}
-  #sp-box .sp-btn{display:block;width:100%;padding:13px;margin:8px 0;border:0;
-    border-radius:10px;font-size:15px;font-weight:700;cursor:pointer}
-  #sp-go{background:linear-gradient(135deg,#ee4d2d,#ff7337);color:#fff;
-    box-shadow:0 4px 14px rgba(238,77,45,.35)}
-  #sp-close{position:absolute;top:6px;right:12px;background:none;border:0;
-    font-size:24px;color:#999;cursor:pointer}
-  #sp-tip{font-size:11.5px;color:#999;margin-top:4px}
+       background:linear-gradient(135deg,#ee4d2d,#ff7337);
+       min-height:100vh;color:#fff;display:flex;align-items:center;
+       justify-content:center;padding:20px;text-align:center}
+  .wrap{max-width:360px;width:100%}
+  .logo{width:90px;height:90px;border-radius:22px;background:#fff;color:#ee4d2d;
+        font-size:48px;font-weight:800;line-height:90px;margin:0 auto 20px;
+        box-shadow:0 8px 24px rgba(0,0,0,.2)}
+  h1{font-size:22px;font-weight:700;margin-bottom:8px}
+  .sub{font-size:14.5px;opacity:.95;margin-bottom:24px;line-height:1.5}
+  .spinner{width:46px;height:46px;border:4px solid rgba(255,255,255,.3);
+           border-top-color:#fff;border-radius:50%;margin:0 auto 24px;
+           animation:spin .9s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .btn{display:block;width:100%;padding:14px;margin-top:10px;border:0;border-radius:12px;
+       font-size:15px;font-weight:700;cursor:pointer;text-decoration:none;color:#ee4d2d;
+       background:#fff;box-shadow:0 4px 14px rgba(0,0,0,.15)}
+  .btn:active{transform:scale(.98)}
+  .btn.ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.5);
+             box-shadow:none;font-size:13.5px}
+  .fallback{display:none;margin-top:20px}
+  .fallback.show{display:block}
+  .ios-tip{display:none;background:rgba(0,0,0,.18);border-radius:12px;padding:14px;
+           margin-top:16px;font-size:13px;line-height:1.55;text-align:left}
+  .ios-tip.show{display:block}
+  .ios-tip b{color:#fff8e1}
+  .foot{font-size:11.5px;opacity:.7;margin-top:24px}
 </style>
 </head>
 <body>
 
-<div class="card">
+<div class="wrap">
   <div class="logo">S</div>
-  <h1>JYooHome Official Store</h1>
-  <p class="sub">Shopee Mall · 283 sản phẩm · 290.3k Theo dõi<br/>⭐ 4.7 (691.7k đánh giá)</p>
+  <h1>Đang mở App Shopee...</h1>
+  <p class="sub">JYooHome Official Store<br/>Shopee Mall · ⭐ 4.7 (691.7k đánh giá)</p>
 
-  <div class="product">
-    <img src="https://via.placeholder.com/60/ee4d2d/ffffff?text=JY" alt="">
-    <div class="info">
-      <div class="name">Deal Hot Shopee Mall – Hàng mới về giá tốt</div>
-      <div class="price">Voucher XTRA · SIÊU RẺ</div>
-      <div class="sold">Online 2 phút trước</div>
-    </div>
+  <div class="spinner" id="spinner"></div>
+
+  <div class="fallback" id="fallback">
+    <button class="btn" id="btn-retry">🛒 BẤM ĐỂ MỞ APP SHOPEE</button>
+    <a class="btn ghost" id="btn-web" href="#" target="_blank">Hoặc xem trên web Shopee</a>
   </div>
 
-  <button id="btn-open-shopee">🛒 MUA NGAY TRÊN APP SHOPEE</button>
-  <div class="foot">Demo by LEO · Hỗ trợ FB Browser Android & iOS</div>
+  <div class="ios-tip" id="ios-tip">
+    📱 <b>Đang dùng iPhone trong app Facebook?</b><br/>
+    Bấm dấu <b>⋯</b> ở góc dưới phải → chọn <b>Mở trong Safari</b> để vào thẳng App Shopee.
+  </div>
+
+  <div class="foot">Demo by LEO</div>
 </div>
 
 <script>
 (function () {
-  // ====== CẤU HÌNH (đổi theo shop khách) ======
-  const SHOPEE_PATH    = "jyoohome.official";              // tên shop hoặc product/{shopid}/{itemid}
+  // ====== CẤU HÌNH ======
+  const SHOPEE_PATH    = "jyoohome.official";
   const SHOPEE_WEB_URL = "https://shopee.vn/" + SHOPEE_PATH;
   const SHOPEE_SCHEME  = "shopee://shopee.vn/" + SHOPEE_PATH;
   const SHOPEE_PKG_AND = "com.shopee.vn";
-  const APPSTORE_IOS   = "https://apps.apple.com/vn/app/shopee/id959841449";
   const PLAYSTORE_AND  = "https://play.google.com/store/apps/details?id=" + SHOPEE_PKG_AND;
 
   const ua = navigator.userAgent || "";
@@ -82,18 +71,7 @@
   const isIOS     = /iPhone|iPad|iPod/i.test(ua);
   const isFB      = /FBAN|FBAV|FB_IAB|FB4A|FBIOS/i.test(ua);
 
-  // ====== POPUP HTML ======
-  const mask = document.createElement("div");
-  mask.id = "sp-mask";
-  mask.innerHTML = `
-    <div id="sp-box">
-      <button id="sp-close">&times;</button>
-      <h3>🛍️ Mở App Shopee</h3>
-      <p>Bấm nút bên dưới để mở sản phẩm trong ứng dụng Shopee${isFB ? " (đang ở trình duyệt Facebook)" : ""}.</p>
-      <button class="sp-btn" id="sp-go">MỞ APP SHOPEE</button>
-      <div id="sp-tip">Chưa cài app? Bấm sẽ tự chuyển sang cửa hàng tải.</div>
-    </div>`;
-  document.body.appendChild(mask);
+  document.getElementById("btn-web").href = SHOPEE_WEB_URL;
 
   // ====== HÀM MỞ APP ======
   function launchShopee() {
@@ -110,53 +88,42 @@
     }
 
     if (isIOS) {
-      // Trong FB webview iOS: scheme bị chặn, App Store fallback gây nhảy sai.
-      // Chỉ dùng Universal Link – nếu app đã cài, iOS sẽ bật prompt "Mở trong Shopee".
-      // Nếu sau 1.5s vẫn ở trang -> hiện hướng dẫn mở Safari (cách duy nhất 100% work).
-      const startedAt = Date.now();
+      // Universal Link – nếu app cài, iOS bật prompt "Mở trong Shopee"
       window.location.href = SHOPEE_WEB_URL;
-
-      setTimeout(() => {
-        if (Date.now() - startedAt < 2500 && !document.hidden) {
-          // Hiện hướng dẫn mở Safari
-          const tip = document.getElementById("sp-tip");
-          const msg = mask.querySelector("#sp-box p");
-          if (msg) msg.innerHTML =
-            "App Shopee chưa tự mở được do trình duyệt Facebook chặn.<br/>" +
-            "👉 Bấm <b>⋯</b> ở góc dưới phải → chọn <b>Mở trong Safari</b>, " +
-            "trang sẽ tự nhảy thẳng vào App Shopee.";
-          if (tip) tip.innerHTML = "<b style='color:#ee4d2d'>Hoặc bấm nút bên dưới để sao chép link</b>";
-          // Đổi nút thành "Sao chép link"
-          const btn = document.getElementById("sp-go");
-          btn.textContent = "📋 SAO CHÉP LINK";
-          btn.onclick = function () {
-            const ta = document.createElement("textarea");
-            ta.value = SHOPEE_WEB_URL;
-            document.body.appendChild(ta);
-            ta.select();
-            try { document.execCommand("copy"); } catch (e) {}
-            document.body.removeChild(ta);
-            btn.textContent = "✅ ĐÃ COPY – Dán vào Safari";
-          };
-        }
-      }, 1500);
       return;
     }
 
+    // Desktop / khác
     window.location.href = SHOPEE_WEB_URL;
   }
 
-  // ====== SỰ KIỆN ======
-  function open(){ mask.style.display = "flex"; }
-  function close(){ mask.style.display = "none"; }
+  // ====== AUTO-LAUNCH KHI VÀO TRANG ======
+  // Một số trình duyệt cần có 1 chút delay sau khi DOM render
+  setTimeout(launchShopee, 250);
 
-  document.getElementById("btn-open-shopee").addEventListener("click", open);
-  mask.querySelector("#sp-close").addEventListener("click", close);
-  mask.addEventListener("click", e => { if (e.target === mask) close(); });
-  mask.querySelector("#sp-go").addEventListener("click", launchShopee);
+  // ====== FALLBACK: nếu sau 1.8s vẫn ở trang -> hiện nút bấm tay ======
+  const startedAt = Date.now();
+  setTimeout(function () {
+    if (Date.now() - startedAt < 2800 && !document.hidden) {
+      document.getElementById("spinner").style.display = "none";
+      document.getElementById("fallback").classList.add("show");
+      if (isIOS && isFB) {
+        document.getElementById("ios-tip").classList.add("show");
+      }
+    }
+  }, 1800);
 
-  // Bật dòng này nếu muốn TỰ ĐỘNG bung popup khi user vào từ FB
-  // if (isFB) setTimeout(open, 600);
+  // ====== NÚT BẤM TAY (fallback) ======
+  document.getElementById("btn-retry").addEventListener("click", launchShopee);
+
+  // ====== Khi user quay lại trang (vd. vừa thoát App Store) -> reset spinner ======
+  document.addEventListener("visibilitychange", function () {
+    if (document.hidden) {
+      document.getElementById("spinner").style.display = "block";
+      document.getElementById("fallback").classList.remove("show");
+      document.getElementById("ios-tip").classList.remove("show");
+    }
+  });
 })();
 </script>
 
