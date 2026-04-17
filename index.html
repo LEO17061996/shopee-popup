@@ -127,8 +127,12 @@
 <script>
 (function () {
   // ====== CẤU HÌNH ======
+  // QUAN TRỌNG: Dùng link rút gọn s.shopee.vn để kích hoạt Android App Links
+  // -> mở thẳng app Shopee, KHÔNG dialog, KHÔNG vào FB browser
+  // Tạo link này bằng: app Shopee -> vào shop/sp -> Chia sẻ -> Sao chép link
+  const SHOPEE_SHORT   = "https://s.shopee.vn/1LZgyLiPXy";        // <-- THAY KHI CÓ LINK SHOP
   const SHOPEE_PATH    = "jyoohome.official";
-  const SHOPEE_WEB_URL = "https://shopee.vn/" + SHOPEE_PATH;
+  const SHOPEE_WEB_URL = SHOPEE_SHORT;                            // dùng short link cho mọi case
   const SHOPEE_PKG_AND = "com.shopee.vn";
   const PLAYSTORE_AND  = "https://play.google.com/store/apps/details?id=" + SHOPEE_PKG_AND;
 
