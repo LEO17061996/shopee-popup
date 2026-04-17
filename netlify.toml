@@ -1,11 +1,2 @@
-# Netlify config — server-side redirect to Shopee deep link
-# Bypass FB iOS / Android dialog by avoiding JavaScript redirect
-
-[[redirects]]
-  from = "/"
-  to = "https://s.shopee.vn/1LZgyLiPXy"
-  status = 302
-  force = true
-
-# Note: s.shopee.vn (affiliate link) opens app smoothly without FB dialog.
-# vn.shp.ee (regular share link) uses HTML+JS that triggers FB dialog.
+# Netlify - serve index.html which uses meta refresh
+# Test: meta refresh might be treated by FB iOS differently than 302 redirect
