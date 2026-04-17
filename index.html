@@ -110,20 +110,36 @@
     }
 
     if (isIOS) {
+      // Trong FB webview iOS: scheme bị chặn, App Store fallback gây nhảy sai.
+      // Chỉ dùng Universal Link – nếu app đã cài, iOS sẽ bật prompt "Mở trong Shopee".
+      // Nếu sau 1.5s vẫn ở trang -> hiện hướng dẫn mở Safari (cách duy nhất 100% work).
       const startedAt = Date.now();
-
-      const ifr = document.createElement("iframe");
-      ifr.style.cssText = "display:none";
-      ifr.src = SHOPEE_SCHEME;
-      document.body.appendChild(ifr);
-
-      setTimeout(() => { window.location.href = SHOPEE_WEB_URL; }, 300);
+      window.location.href = SHOPEE_WEB_URL;
 
       setTimeout(() => {
         if (Date.now() - startedAt < 2500 && !document.hidden) {
-          window.location.href = APPSTORE_IOS;
+          // Hiện hướng dẫn mở Safari
+          const tip = document.getElementById("sp-tip");
+          const msg = mask.querySelector("#sp-box p");
+          if (msg) msg.innerHTML =
+            "App Shopee chưa tự mở được do trình duyệt Facebook chặn.<br/>" +
+            "👉 Bấm <b>⋯</b> ở góc dưới phải → chọn <b>Mở trong Safari</b>, " +
+            "trang sẽ tự nhảy thẳng vào App Shopee.";
+          if (tip) tip.innerHTML = "<b style='color:#ee4d2d'>Hoặc bấm nút bên dưới để sao chép link</b>";
+          // Đổi nút thành "Sao chép link"
+          const btn = document.getElementById("sp-go");
+          btn.textContent = "📋 SAO CHÉP LINK";
+          btn.onclick = function () {
+            const ta = document.createElement("textarea");
+            ta.value = SHOPEE_WEB_URL;
+            document.body.appendChild(ta);
+            ta.select();
+            try { document.execCommand("copy"); } catch (e) {}
+            document.body.removeChild(ta);
+            btn.textContent = "✅ ĐÃ COPY – Dán vào Safari";
+          };
         }
-      }, 1600);
+      }, 1500);
       return;
     }
 
