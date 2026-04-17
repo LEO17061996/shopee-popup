@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>Demo - Mở App Shopee từ trình duyệt Facebook</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+       background:linear-gradient(135deg,#ffeadf,#ffd1c2);
+       min-height:100vh;color:#222;display:flex;align-items:center;justify-content:center;padding:20px}
+  .card{background:#fff;border-radius:18px;padding:26px 22px;max-width:400px;width:100%;
+        box-shadow:0 12px 40px rgba(0,0,0,.12);text-align:center}
+  .logo{width:90px;height:90px;border-radius:50%;background:#ee4d2d;color:#fff;
+        font-size:46px;font-weight:800;line-height:90px;margin:0 auto 14px;
+        box-shadow:0 6px 18px rgba(238,77,45,.4)}
+  h1{font-size:20px;margin-bottom:6px;color:#222}
+  .sub{font-size:14px;color:#666;margin-bottom:18px;line-height:1.5}
+  .product{background:#fff8f5;border:1px dashed #ee4d2d;border-radius:12px;
+           padding:12px;margin-bottom:18px;text-align:left;display:flex;gap:10px;align-items:center}
+  .product img{width:60px;height:60px;border-radius:8px;object-fit:cover;background:#eee}
+  .product .info{flex:1}
+  .product .name{font-size:14px;font-weight:600;color:#222;line-height:1.3}
+  .product .price{color:#ee4d2d;font-weight:700;font-size:15px;margin-top:2px}
+  .product .sold{font-size:11px;color:#999;margin-top:2px}
+  #btn-open-shopee{width:100%;padding:14px;background:linear-gradient(135deg,#ee4d2d,#ff7337);
+        color:#fff;border:0;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;
+        box-shadow:0 6px 18px rgba(238,77,45,.4)}
+  #btn-open-shopee:active{transform:scale(.98)}
+  .foot{font-size:11.5px;color:#999;margin-top:14px}
+
+  /* ===== POPUP ===== */
+  #sp-mask{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;
+    align-items:center;justify-content:center;z-index:99999}
+  #sp-box{position:relative;background:#fff;width:88%;max-width:340px;
+    border-radius:16px;padding:24px 18px 18px;text-align:center;
+    box-shadow:0 10px 40px rgba(0,0,0,.3);animation:sp-in .25s ease}
+  @keyframes sp-in{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}
+  #sp-box h3{margin:0 0 6px;font-size:18px;color:#222}
+  #sp-box p{margin:0 0 14px;font-size:13.5px;color:#666;line-height:1.45}
+  #sp-box .sp-btn{display:block;width:100%;padding:13px;margin:8px 0;border:0;
+    border-radius:10px;font-size:15px;font-weight:700;cursor:pointer}
+  #sp-go{background:linear-gradient(135deg,#ee4d2d,#ff7337);color:#fff;
+    box-shadow:0 4px 14px rgba(238,77,45,.35)}
+  #sp-close{position:absolute;top:6px;right:12px;background:none;border:0;
+    font-size:24px;color:#999;cursor:pointer}
+  #sp-tip{font-size:11.5px;color:#999;margin-top:4px}
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="logo">S</div>
+  <h1>Cửa hàng Demo Shopee</h1>
+  <p class="sub">Click vào link Facebook → mở trên trình duyệt Facebook<br/>→ bấm nút để nhảy thẳng vào app Shopee</p>
+
+  <div class="product">
+    <img src="https://via.placeholder.com/60/ee4d2d/ffffff?text=SP" alt="">
+    <div class="info">
+      <div class="name">Sản phẩm khuyến mãi giảm 50%</div>
+      <div class="price">đ199.000</div>
+      <div class="sold">Đã bán 1.2k</div>
+    </div>
+  </div>
+
+  <button id="btn-open-shopee">🛒 MUA NGAY TRÊN APP SHOPEE</button>
+  <div class="foot">Demo by [Tên bạn] · Hỗ trợ FB Browser Android & iOS</div>
+</div>
+
+<script>
+(function () {
+  // ====== CẤU HÌNH (đổi theo shop khách) ======
+  const SHOPEE_PATH    = "spahanoi";                       // tên shop hoặc product/{shopid}/{itemid}
+  const SHOPEE_WEB_URL = "https://shopee.vn/" + SHOPEE_PATH;
+  const SHOPEE_SCHEME  = "shopee://shopee.vn/" + SHOPEE_PATH;
+  const SHOPEE_PKG_AND = "com.shopee.vn";
+  const APPSTORE_IOS   = "https://apps.apple.com/vn/app/shopee/id959841449";
+  const PLAYSTORE_AND  = "https://play.google.com/store/apps/details?id=" + SHOPEE_PKG_AND;
+
+  const ua = navigator.userAgent || "";
+  const isAndroid = /Android/i.test(ua);
+  const isIOS     = /iPhone|iPad|iPod/i.test(ua);
+  const isFB      = /FBAN|FBAV|FB_IAB|FB4A|FBIOS/i.test(ua);
+
+  // ====== POPUP HTML ======
+  const mask = document.createElement("div");
+  mask.id = "sp-mask";
+  mask.innerHTML = `
+    <div id="sp-box">
+      <button id="sp-close">&times;</button>
+      <h3>🛍️ Mở App Shopee</h3>
+      <p>Bấm nút bên dưới để mở sản phẩm trong ứng dụng Shopee${isFB ? " (đang ở trình duyệt Facebook)" : ""}.</p>
+      <button class="sp-btn" id="sp-go">MỞ APP SHOPEE</button>
+      <div id="sp-tip">Chưa cài app? Bấm sẽ tự chuyển sang cửa hàng tải.</div>
+    </div>`;
+  document.body.appendChild(mask);
+
+  // ====== HÀM MỞ APP ======
+  function launchShopee() {
+    if (isAndroid) {
+      const intentUrl =
+        "intent://shopee.vn/" + SHOPEE_PATH +
+        "#Intent" +
+        ";scheme=https" +
+        ";package=" + SHOPEE_PKG_AND +
+        ";S.browser_fallback_url=" + encodeURIComponent(PLAYSTORE_AND) +
+        ";end";
+      window.location.href = intentUrl;
+      return;
+    }
+
+    if (isIOS) {
+      const startedAt = Date.now();
+
+      const ifr = document.createElement("iframe");
+      ifr.style.cssText = "display:none";
+      ifr.src = SHOPEE_SCHEME;
+      document.body.appendChild(ifr);
+
+      setTimeout(() => { window.location.href = SHOPEE_WEB_URL; }, 300);
+
+      setTimeout(() => {
+        if (Date.now() - startedAt < 2500 && !document.hidden) {
+          window.location.href = APPSTORE_IOS;
+        }
+      }, 1600);
+      return;
+    }
+
+    window.location.href = SHOPEE_WEB_URL;
+  }
+
+  // ====== SỰ KIỆN ======
+  function open(){ mask.style.display = "flex"; }
+  function close(){ mask.style.display = "none"; }
+
+  document.getElementById("btn-open-shopee").addEventListener("click", open);
+  mask.querySelector("#sp-close").addEventListener("click", close);
+  mask.addEventListener("click", e => { if (e.target === mask) close(); });
+  mask.querySelector("#sp-go").addEventListener("click", launchShopee);
+
+  // Bật dòng này nếu muốn TỰ ĐỘNG bung popup khi user vào từ FB
+  // if (isFB) setTimeout(open, 600);
+})();
+</script>
+
+</body>
+</html>
