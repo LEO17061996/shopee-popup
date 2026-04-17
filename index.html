@@ -1,9 +1,35 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 <title>JYooHome Official Store - Shopee Mall</title>
+
+<!-- ===== OG TAGS (preview FB) ===== -->
+<meta property="og:title" content="JYooHome Official Store - Shopee Mall" />
+<meta property="og:description" content="Mua sắm chính hãng từ JYooHome trên Shopee Mall - Bấm để mở app Shopee" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://demo-shoppe.netlify.app/" />
+<meta property="og:image" content="https://deo.shopeemobile.com/shopee/shopee-mobilemall-live-sg/homepagefe/26c9324913c021677768c36975d635ef.png" />
+<meta property="og:image:alt" content="JYooHome Official Store" />
+
+<!-- ===== FACEBOOK APP LINKS (KEY!) ===== -->
+<!-- Khi user tap link này trong FB, FB sẽ tự mở app Shopee qua scheme bên dưới -->
+
+<!-- iOS -->
+<meta property="al:ios:url" content="shopeevn://reactPath?navigate_url=https%3A%2F%2Fshopee.vn%2Fjyoohome.official&path=shopee%2FTRANSFER_PAGE&tab=buy&use_deeplink=1&version=1" />
+<meta property="al:ios:app_store_id" content="959841449" />
+<meta property="al:ios:app_name" content="Shopee VN" />
+
+<!-- Android -->
+<meta property="al:android:url" content="shopeevn://reactPath?navigate_url=https%3A%2F%2Fshopee.vn%2Fjyoohome.official&path=shopee%2FTRANSFER_PAGE&tab=buy&use_deeplink=1&version=1" />
+<meta property="al:android:package" content="com.shopee.vn" />
+<meta property="al:android:app_name" content="Shopee VN" />
+
+<!-- Web fallback -->
+<meta property="al:web:url" content="https://shopee.vn/jyoohome.official" />
+<meta property="al:web:should_fallback" content="true" />
+
 <style>
   *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
   body{font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;
@@ -12,36 +38,21 @@
   .card{background:#fff;border-radius:20px;padding:24px 20px;max-width:400px;width:100%;
         box-shadow:0 12px 40px rgba(0,0,0,.12);text-align:center}
   .logo{width:90px;height:90px;border-radius:24px;background:#ee4d2d;color:#fff;
-        font-size:40px;font-weight:800;line-height:90px;margin:0 auto 14px;
-        box-shadow:0 6px 18px rgba(238,77,45,.4);letter-spacing:-1px}
-  h1{font-size:20px;margin-bottom:4px;color:#222}
-  .badge{display:inline-block;background:#ffd60a;color:#222;font-size:11px;font-weight:700;
-         padding:3px 8px;border-radius:4px;margin-bottom:8px}
-  .stats{font-size:13.5px;color:#666;margin-bottom:18px;line-height:1.5}
+        font-size:38px;font-weight:800;line-height:90px;margin:0 auto 14px;
+        box-shadow:0 6px 18px rgba(238,77,45,.4)}
+  h1{font-size:20px;margin-bottom:6px}
+  .badge{display:inline-block;background:#ffd60a;color:#222;font-size:11px;
+         font-weight:700;padding:3px 8px;border-radius:4px;margin-bottom:8px}
+  .stats{font-size:13px;color:#666;margin-bottom:18px;line-height:1.5}
   .stats span{color:#ee4d2d;font-weight:700}
-
-  .product{background:#fff8f5;border:1.5px dashed #ffb494;border-radius:14px;
-           padding:14px;margin-bottom:18px;display:flex;gap:12px;align-items:center;text-align:left}
-  .product .img{width:70px;height:70px;border-radius:10px;background:#ee4d2d;
-                color:#fff;display:flex;align-items:center;justify-content:center;
-                font-size:24px;flex-shrink:0;font-weight:800}
-  .product .info{flex:1;min-width:0}
-  .product .name{font-size:13.5px;font-weight:600;color:#222;line-height:1.3;
-                 overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
-  .product .price{color:#ee4d2d;font-weight:800;font-size:17px;margin-top:4px}
-  .product .old{text-decoration:line-through;color:#999;font-size:12px;margin-left:4px;font-weight:400}
-  .product .meta{font-size:11px;color:#888;margin-top:3px}
-
   .btn{display:block;width:100%;padding:15px;border:0;border-radius:14px;
        font-size:16px;font-weight:700;text-decoration:none;text-align:center;
        background:linear-gradient(135deg,#ee4d2d,#ff7337);color:#fff;
-       box-shadow:0 6px 18px rgba(238,77,45,.4);
-       transition:transform .1s}
+       box-shadow:0 6px 18px rgba(238,77,45,.4);margin-top:8px}
   .btn:active{transform:scale(.97)}
-  .btn-sub{font-size:11.5px;color:#999;margin-top:10px;line-height:1.5}
-  .btn-sub b{color:#ee4d2d}
-
-  .foot{font-size:11px;color:#999;margin-top:18px;line-height:1.5}
+  .note{font-size:12px;color:#888;margin-top:14px;line-height:1.5}
+  .note b{color:#ee4d2d}
+  .foot{font-size:11px;color:#aaa;margin-top:14px}
 </style>
 </head>
 <body>
@@ -53,47 +64,15 @@
   <div class="stats">
     ⭐ 4.7 · <span>290.3k</span> theo dõi · <span>283</span> sản phẩm
   </div>
-
-  <div class="product">
-    <div class="img">🧹</div>
-    <div class="info">
-      <div class="name">Máy Hút Bụi Cầm Tay Không Dây Nhật Bản TAMASHIO 9000Pa</div>
-      <div class="price">₫183.000<span class="old">₫250.000</span></div>
-      <div class="meta">⭐ 4.5 · Đã bán 1.6k+</div>
-    </div>
-  </div>
-
-  <a class="btn" href="https://s.shopee.vn/1LZgyLiPXy" id="btn-shopee">
+  <a class="btn" href="https://shopee.vn/jyoohome.official">
     🛒 MUA NGAY TRÊN APP SHOPEE
   </a>
-
-  <div class="btn-sub">
-    Bấm để mở thẳng app Shopee · <b>Không cần copy link</b>
+  <div class="note">
+    💡 Khi anh/chị <b>POST link này lên Facebook</b>, khách bấm sẽ mở<br/>
+    <b>thẳng vào App Shopee</b>, không cần qua trang trung gian.
   </div>
-
-  <div class="foot">
-    🛡️ Shopee Mall chính hãng · 12 tháng bảo hành<br/>
-    Demo by LEO
-  </div>
+  <div class="foot">Demo by LEO · Powered by Facebook App Links</div>
 </div>
-
-<script>
-  // Optional: track click với analytics nếu cần
-  // Ví dụ: gọi FB Pixel hoặc GA4
-  document.getElementById('btn-shopee').addEventListener('click', function() {
-    // fbq('track', 'Lead');  // FB Pixel
-    // gtag('event', 'click_shopee'); // GA4
-    console.log('User clicked Shopee link');
-  });
-
-  // Detect platform để hiển thị message phù hợp (optional)
-  var ua = navigator.userAgent;
-  var isIOS = /iPhone|iPad|iPod/.test(ua);
-  var isFB = /FBAN|FBAV|FBIOS|FB_IAB/.test(ua);
-  if (isIOS && isFB) {
-    // Có thể custom thêm UI cho iOS FB nếu cần
-  }
-</script>
 
 </body>
 </html>
