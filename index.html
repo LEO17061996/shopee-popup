@@ -141,14 +141,10 @@
 
   // ====== HÀM MỞ APP ======
   function launchAndroid() {
-    const intentUrl =
-      "intent://shopee.vn/" + SHOPEE_PATH +
-      "#Intent" +
-      ";scheme=https" +
-      ";package=" + SHOPEE_PKG_AND +
-      ";S.browser_fallback_url=" + encodeURIComponent(PLAYSTORE_AND) +
-      ";end";
-    window.location.href = intentUrl;
+    // Shopee đã đăng ký Android App Links cho shopee.vn
+    // -> chỉ cần dùng URL https trực tiếp, Android tự mở app KHÔNG cần dialog
+    // Nếu chưa cài Shopee -> tự mở web Shopee mobile
+    window.location.href = SHOPEE_WEB_URL;
   }
 
   function launchIOS() {
